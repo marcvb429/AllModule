@@ -27,10 +27,20 @@ function InputModule:Deactivate()
 end
 
 function InputModule:IsActivated()
-	if self.Triggered then return true
-	if self.Key and love.keyboard.isDown(tostring(self.Key)) then return false
+	if self.Triggered then return true end
+	if self.Key and love.keyboard.isDown(tostring(self.Key)) then return true end
 	
 	return false
+end
+
+function InputModule:Destroy()
+	--assert(self.ID, "person dawg 😭")
+	assert(self.ID, "Missing property \"ID\"!")
+	InputModule.Inputs[self.ID] = nil
+	
+	for pos in pairs(self) do
+		self[pos] = nil
+	end
 end
 
 return InputModule
