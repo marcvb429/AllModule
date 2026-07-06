@@ -62,4 +62,24 @@ function Sprite:Destroy()
 	end
 end
 
+function Sprite.DrawAll(IgnoreTags)
+	for pos in pairs(Sprite.Sprites) do
+		local ShouldDraw = true
+		
+		if IgnoreTags then
+			for _, v in ipairs(IgnoreTags) do
+				if Sprite.Sprites[pos].Tags then
+					if Sprite.Sprites[pos].Tags[v] then ShouldDraw = false end
+				else
+					ShouldDraw = false -- frick them sprite if they deleted the .Tags
+				end
+			end
+		end
+		
+		if ShouldDraw then
+			Sprite.Sprites[pos]:Draw()
+		end
+	end
+end
+
 return Sprite
