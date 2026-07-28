@@ -19,6 +19,7 @@ function Sprite.new(ID) -- new Sprite object
 	self.ID = ID -- SHOULD NOT BE CHANGED. PLEASE. I BEG YOU. for now we don't use this property but still, might be useful, and changing this won't change the ID in the sprite table, so it will be out of sync. so that's why you DON'T change it
 	self.Rotation = 0 -- should be in radians
 	self.Tags = {}
+	self.SizeProperly = true -- if false then it will won't be scaled properly (get it?)
 	Sprite.Sprites[ID] = self
 	return self
 end
@@ -37,7 +38,11 @@ function Sprite:Draw() -- should be used in a love.draw() function since that is
 	
 	local X, Y = Sprite.GetScaleForXAndY(self.Drawable:getWidth(), self.Drawable:getHeight(), self.SizeX, self.SizeY)
 	
-	love.graphics.draw(self.Drawable, self.X, self.Y, self.Rotation, X, Y)
+	if self.SizeProperly then
+		love.graphics.draw(self.Drawable, self.X, self.Y, self.Rotation, X, Y)
+	else
+		love.graphics.draw(self.Drawable, self.X, self.Y, self.Rotation, self.SizeX, self.SizeY)
+	end
 end
 
 function Sprite:AddTag(Tag)
