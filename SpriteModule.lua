@@ -83,7 +83,7 @@ function Sprite.DrawAll(IgnoreTags, ForceDraw)
         end
 
 		if ShouldDraw and IgnoreTags then
-			for _, v in ipairs(IgnoreTages) do
+			for _, v in ipairs(IgnoreTags) do
 				if ThisSprite.Tags then
 					if ThisSprite.Tags[v] then ShouldDraw = false end
 				else
